@@ -1,5 +1,5 @@
 // import * as d3 from "d3";
-import React, {Component} from 'react';
+import React from 'react';
     var height = 800,
          width = 500;
 
@@ -35,30 +35,30 @@ import React, {Component} from 'react';
     var solveForR = function(TMAX) {
         // area of a circle
         // Area = Pi * r * r
-        Area = Math.abs( TMAX );
-        r = Math.sqrt( Area / Math.PI);
+        var Area = Math.abs( TMAX );
+        var r = Math.sqrt( Area / Math.PI);
         return r
       };
 
     var parseTime = d3.timeParse("%Y%m%d");
-     d3.csv('climate_data_truncated.csv', function(data) {
-        yMax = d3.max(data, function(element) {
+     d3.csv('data/climate_data_truncated.csv', function(data) {
+        var yMax = d3.max(data, function(element) {
             return parseInt(element.TMAX)
         });
 
-        yMin = d3.min(data, function(element) {
+        var yMin = d3.min(data, function(element) {
             return parseInt(element.TMAX)
         });
 
-        xDomain = d3.extent(data, function(element){
+        var xDomain = d3.extent(data, function(element){
             return parseTime(element.DATE)
         });
 
-        yDomain = d3.extent(data, function(element){
+        var yDomain = d3.extent(data, function(element){
             return parseInt(element.TMAX)
         });
 
-        rDomain = d3.extent(data, function(element){
+        var rDomain = d3.extent(data, function(element){
             return solveForR(parseInt(element.TMAX));
         });
 
@@ -84,7 +84,7 @@ import React, {Component} from 'react';
           .attr("class", "y axis")
           .call(yAxis);
 
-        dots = viz.selectAll('g.dots')
+        var dots = viz.selectAll('g.dots')
                      .data(data)
                      .enter()
                      .append('g')
@@ -92,10 +92,10 @@ import React, {Component} from 'react';
 
         dots.attr('transform', function(d) {
             // get the x position
-            date = parseTime(d.DATE);
-            x = xScale(date)
+            var date = parseTime(d.DATE);
+            var x = xScale(date)
             // get the y position
-            y = yScale(d.TMAX)
+            var y = yScale(d.TMAX)
             return 'translate(' + x + ',' + y + ')'
           })
             .style('stroke', '#00ffd2')
