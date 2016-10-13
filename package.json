@@ -1,0 +1,24 @@
+{
+  "name": "xd3",
+  "version": "1.0.0",
+  "description": "react library that wrap d3.js and support ES6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhcao/xd3.git"
+  },
+  "keywords": [
+    "react",
+    "d3",
+    "xd3"
+  ],
+  "author": "Thanh Cao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thanhcao/xd3/issues"
+  },
+  "homepage": "https://github.com/thanhcao/xd3#readme"
+}
