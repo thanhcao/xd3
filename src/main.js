@@ -1,33 +1,65 @@
-import React from 'react';
-import Chart from 'components/Chart';
+import React,{Component} from 'react';
 import reactDOM from 'react-dom';
-import Svg from 'components/svg.js';
+import * as d3 from "d3";
+import TestChart from 'components/charts/TestChart';
 
-
-
-var sampleData = [
-    {id: '5fbmzmtc', x: 7, y: 41, z: 6},
-    {id: 's4f8phwm', x: 11, y: 45, z: 9},
-    // ...
-];
-
-var App = React.createClass({
-    getInitialState: function() {
-        return {
-            data: sampleData,
-            domain: {x: [0, 30], y: [0, 100]}
+class App extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            charts: [{data:[],id:1}]
         };
-    },
+    }
 
-    render: function() {
+    componentDidMount()
+    {
+        this.fetchData()
+    }
+
+    fetchData()
+    {
+        var self = this
+        d3.csv('data/climate_data_truncated.csv', function (data) {
+            // var xDomain = d3.extent(data, function(element){
+            //     return parseTime(element.DATE)
+            // });
+            //
+            // var yDomain = d3.extent(data, function(element){
+            //     return parseInt(element.TMAX)
+            // });
+            //
+            // var rDomain = d3.extent(data, function(element){
+            //     return solveForR(parseInt(element.TMAX));
+            // });
+
+            // this.setState({
+            //     data: data,
+            //     xDomain: xDomain,
+            //     yDomain: yDomain,
+            //     rDomain: rDomain
+            // });
+
+            self.state.charts[0].data = data;
+            self.setState(self.state);
+
+        });
+    }
+
+    render() {
         return (
             <div className="App">
-                <Chart
-                    data={this.state.data}
-                    domain={this.state.domain} />
+                <div>
+                    {this.state.charts.map(function(chart, index) {
+                        return (
+                            <TestChart key={chart.id} data={chart.data} ></TestChart>
+                        );
+                    }.bind(this))}
+                </div>
             </div>
         );
     }
-});
+}
 
 reactDOM.render(<App />, document.getElementById('root'));
